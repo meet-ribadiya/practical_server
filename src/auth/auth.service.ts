@@ -79,6 +79,7 @@ export class AuthService {
         access_token,
         userId: user._id,
         email: user.email,
+        role:user.roles
       }
     };
   }

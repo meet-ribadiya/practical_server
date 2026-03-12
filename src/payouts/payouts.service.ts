@@ -180,4 +180,16 @@ export class PayoutsService {
       data: payout,
     };
   }
+
+  async vendorList() {
+    const vendors = await this.vendorModel
+      .find({ is_active: true })
+      .sort({ createdAt: -1 })
+      .select({ name: 1, _id: 1 });
+
+    return {
+      message: 'Vendor list fetched successfully',
+      data: vendors,
+    };
+  }
 }

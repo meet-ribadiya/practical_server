@@ -16,6 +16,11 @@ export class PayoutsController {
     return this.payoutsService.getPayouts(query);
   }
 
+  @Get('list')
+  async vendorList(){
+    return this.payoutsService.vendorList();
+  }
+  
   @Post()
   createPayout(@Body() dto:CreatePayoutDto, @Req() request) {
     return this.payoutsService.createPayout(dto, request.user.id);
@@ -44,4 +49,5 @@ export class PayoutsController {
   ) {
     return this.payoutsService.rejectPayout(id, reason, request.user.id);
   }
+
 }
