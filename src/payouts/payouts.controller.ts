@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param, Req, UseGuards } from '@nestjs/common';
 import { PayoutsService } from './payouts.service';
 import { CreatePayoutDto } from './dto/create-payout.dto';
 import { UpdatePayoutDto } from './dto/update-payout.dto';
@@ -9,30 +9,39 @@ import { JwtAuthGuard } from 'src/auth/lib/jwt-auth.guard';
 @UseGuards(JwtAuthGuard)
 @Controller('payouts')
 export class PayoutsController {
-  constructor(private readonly payoutsService: PayoutsService) {}
-
-  @Post()
-  create(@Body() createPayoutDto: CreatePayoutDto) {
-    return this.payoutsService.create(createPayoutDto);
-  }
+  constructor(private readonly payoutsService: PayoutsService) { }
 
   @Get()
-  findAll() {
-    return this.payoutsService.findAll();
+  getPayouts(@Query() query) {
+    return this.payoutsService.getPayouts(query);
+  }
+
+  @Post()
+  createPayout(@Body() dto, @Req() request) {
+    return this.payoutsService.createPayout(dto, request.user.id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.payoutsService.findOne(+id);
+  getPayout(@Param('id') id: string) {
+    return this.payoutsService.getPayoutById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePayoutDto: UpdatePayoutDto) {
-    return this.payoutsService.update(+id, updatePayoutDto);
+  @Post(':id/submit')
+  submitPayout(@Param('id') id: string, @Req() request) {
+    return this.payoutsService.submitPayout(id, request.user.id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.payoutsService.remove(+id);
+  @Post(':id/approve')
+  approvePayout(@Param('id') id: string, @Req() request) {
+    return this.payoutsService.approvePayout(id, request.user.id);
+  }
+
+  @Post(':id/reject')
+  rejectPayout(
+    @Param('id') id: string,
+    @Body('reason') reason: string,
+    @Req() request,
+  ) {
+    return this.payoutsService.rejectPayout(id, reason, request.user.id);
   }
 }

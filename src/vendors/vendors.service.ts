@@ -9,27 +9,32 @@ import { Vendor, VendorDocument } from './entities/vendor.entity';
 @Injectable()
 export class VendorsService {
   constructor(
-      @InjectModel(Vendor.name) private vendorModel: Model<VendorDocument>,
-      private jwtService: JwtService,
-    ) { }
+    @InjectModel(Vendor.name) private vendorModel: Model<VendorDocument>,
+    private jwtService: JwtService,
+  ) { }
 
-  create(createVendorDto: CreateVendorDto) {
-    return 'This action adds a new vendor';
+  async createVendor(createVendorDto: CreateVendorDto) {
+
+    const vendor = await this.vendorModel.create({
+      ...createVendorDto,
+      is_active: true,
+    });
+
+    return {
+      message: 'Vendor created successfully',
+      data: vendor,
+    };
   }
 
-  findAll() {
-    return `This action returns all vendors`;
-  }
+  async getVendors() {
 
-  findOne(id: number) {
-    return `This action returns a #${id} vendor`;
-  }
+    const vendors = await this.vendorModel
+      .find({ is_active: true })
+      .sort({ createdAt: -1 });
 
-  update(id: number, updateVendorDto: UpdateVendorDto) {
-    return `This action updates a #${id} vendor`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} vendor`;
+    return {
+      message: 'Vendor list fetched successfully',
+      data: vendors,
+    };
   }
 }

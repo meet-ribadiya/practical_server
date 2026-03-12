@@ -18,7 +18,7 @@ export class AuthController {
     return this.authService.createAccount(email, password, roles);
   }
 
-  @ApiOperation({ summary: 'Created user account mobile number verify using API' })
+  @ApiOperation({ summary: 'Verify user account with email and password' })
   @Post('log-in/verify')
   verifyUser(
     @Query('email') email: string,

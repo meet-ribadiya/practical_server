@@ -11,7 +11,7 @@ function customTimestamp(): number {
 export class Vendor {
     _id: mongoose.Types.ObjectId;
 
-    @Prop()
+    @Prop({required: true})
     name: string;
 
     @Prop()

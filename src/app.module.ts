@@ -7,7 +7,6 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { VendorsModule } from './vendors/vendors.module';
 import { PayoutsModule } from './payouts/payouts.module';
-import { PayoutAuditsModule } from './payout_audits/payout_audits.module';
 
 @Module({
   imports: [
@@ -20,7 +19,6 @@ import { PayoutAuditsModule } from './payout_audits/payout_audits.module';
     UsersModule,
     VendorsModule,
     PayoutsModule,
-    PayoutAuditsModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

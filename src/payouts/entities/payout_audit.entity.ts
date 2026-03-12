@@ -21,6 +21,9 @@ export class PayoutAudit {
     @Prop()
     performed_by: string;
     
+    @Prop()
+    timestamp: Date;
+    
     @Prop({ default: customTimestamp })
     createdAt: number;
 

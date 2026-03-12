@@ -44,13 +44,13 @@ export class Payout {
     rejected_by: string;
 
     @Prop()
-    submitted_at: number;
+    submitted_at: Date;
 
     @Prop()
-    approved_at: number;
+    approved_at: Date;
 
     @Prop()
-    rejected_at: number;
+    rejected_at: Date;
 
     @Prop({ default: customTimestamp })
     createdAt: number;
