@@ -16,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(req: e.Request, payload: any, done: VerifiedCallback) {
     if (req.url.includes('vendor')) {
-      if (payload.roles == 'vendor') {
+      if (payload.roles == 'FINANCE') {
         return { id: payload.id, email: payload.email };
       } else {
         return done(

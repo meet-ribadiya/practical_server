@@ -17,7 +17,7 @@ export class PayoutsController {
   }
 
   @Post()
-  createPayout(@Body() dto, @Req() request) {
+  createPayout(@Body() dto:CreatePayoutDto, @Req() request) {
     return this.payoutsService.createPayout(dto, request.user.id);
   }
 
@@ -31,12 +31,12 @@ export class PayoutsController {
     return this.payoutsService.submitPayout(id, request.user.id);
   }
 
-  @Post(':id/approve')
+  @Post(':id/vendors/approve')
   approvePayout(@Param('id') id: string, @Req() request) {
     return this.payoutsService.approvePayout(id, request.user.id);
   }
 
-  @Post(':id/reject')
+  @Post(':id/vendors/reject')
   rejectPayout(
     @Param('id') id: string,
     @Body('reason') reason: string,

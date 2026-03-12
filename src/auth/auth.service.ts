@@ -15,6 +15,7 @@ export class AuthService {
 
   async createAccount(email, password, roles) {
     const existingUser = await this.userModel.findOne({ email });
+    console.log("🚀 ~ AuthService ~ createAccount ~ email:", email)
     if (existingUser) {
       return {
         status: HttpStatus.BAD_REQUEST,
@@ -29,6 +30,7 @@ export class AuthService {
       password: hashedPassword,
       roles: roles
     });
+      console.log("🚀 ~ AuthService ~ createAccount ~ email:", email)
 
     return {
       status: HttpStatus.CREATED,
