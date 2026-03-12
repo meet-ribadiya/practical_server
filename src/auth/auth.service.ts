@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { User, UserDocument } from 'src/users/entities/user.entity';
+import { userRoleEnum } from 'src/constant/user-role';
 
 @Injectable()
 export class AuthService {

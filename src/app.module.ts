@@ -5,6 +5,9 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { VendorsModule } from './vendors/vendors.module';
+import { PayoutsModule } from './payouts/payouts.module';
+import { PayoutAuditsModule } from './payout_audits/payout_audits.module';
 
 @Module({
   imports: [
@@ -14,7 +17,10 @@ import { MongooseModule } from '@nestjs/mongoose';
      }),
     MongooseModule.forRoot(process.env.DATABASE_URL),
     AuthModule,
-    UsersModule, 
+    UsersModule,
+    VendorsModule,
+    PayoutsModule,
+    PayoutAuditsModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

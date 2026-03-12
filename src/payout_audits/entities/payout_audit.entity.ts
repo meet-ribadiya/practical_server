@@ -1,31 +1,30 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { userRoleEnum } from 'src/constant/user-role';
+import { auditActionsEnum } from 'src/constant/audit-actions';
 
-export type UserDocument = User & Document;
+export type PayoutAuditDocument = PayoutAudit & Document;
 
 function customTimestamp(): number {
     return new Date().getTime();
 }
 
 @Schema()
-export class User {
+export class PayoutAudit {
     _id: mongoose.Types.ObjectId;
 
-    @Prop({ unique: true })
-    email: string;
+    @Prop()
+    payout_id: string;
 
     @Prop()
-    password: string;
+    action: auditActionsEnum;
 
     @Prop()
-    roles: userRoleEnum;
-
+    performed_by: string;
+    
     @Prop({ default: customTimestamp })
     createdAt: number;
 
     @Prop({ default: customTimestamp })
     updatedAt: number;
 }
-
-export const UserSchema = SchemaFactory.createForClass(User);
+export const PayoutAuditSchema = SchemaFactory.createForClass(PayoutAudit);

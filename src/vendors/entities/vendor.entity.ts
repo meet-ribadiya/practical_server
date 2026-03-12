@@ -1,25 +1,30 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { userRoleEnum } from 'src/constant/user-role';
 
-export type UserDocument = User & Document;
+export type VendorDocument = Vendor & Document;
 
 function customTimestamp(): number {
     return new Date().getTime();
 }
 
 @Schema()
-export class User {
+export class Vendor {
     _id: mongoose.Types.ObjectId;
 
-    @Prop({ unique: true })
-    email: string;
+    @Prop()
+    name: string;
 
     @Prop()
-    password: string;
+    bank_account: string;
 
     @Prop()
-    roles: userRoleEnum;
+    upi_id: string;
+
+    @Prop()
+    ifsc_code: string;
+
+    @Prop({ default: true })
+    is_active: boolean;
 
     @Prop({ default: customTimestamp })
     createdAt: number;
@@ -27,5 +32,4 @@ export class User {
     @Prop({ default: customTimestamp })
     updatedAt: number;
 }
-
-export const UserSchema = SchemaFactory.createForClass(User);
+export const VendorSchema = SchemaFactory.createForClass(Vendor);
